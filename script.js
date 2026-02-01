@@ -44,7 +44,11 @@ const audioSources = [
 // Define background video sources
 // Upload your .mp4 files to Cloudflare R2 and update the filenames below
 const backgroundVideos = [
-    { id: 'backgroundVideo1', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/test-video.mp4', attribution: 'The video material has been kindly provided by <a href="https://www.hikingfex.com/en/videos" target="_blank" rel="noopener noreferrer">HikingFex.com</a>.' },
+    { id: 'backgroundVideo1', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/2977285-uhd_3840_2160_30fps.mp4', attribution: 'Video from <a href="https://www.pexels.com/video/2977285/" target="_blank" rel="noopener noreferrer">Pexels</a>' },
+    { id: 'backgroundVideo2', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/2977311-uhd_3840_2160_30fps.mp4', attribution: 'Video from <a href="https://www.pexels.com/video/2977311/" target="_blank" rel="noopener noreferrer">Pexels</a>' },
+    { id: 'backgroundVideo3', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/4913621-uhd_3840_2160_25fps.mp4', attribution: 'Video from <a href="https://www.pexels.com/video/4913621/" target="_blank" rel="noopener noreferrer">Pexels</a>' },
+    { id: 'backgroundVideo4', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/4913623-uhd_3840_2160_25fps.mp4', attribution: 'Video from <a href="https://www.pexels.com/video/4913623/" target="_blank" rel="noopener noreferrer">Pexels</a>' },
+    { id: 'backgroundVideo5', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/5769257-uhd_3840_2160_30fps.mp4', attribution: 'Video from <a href="https://www.pexels.com/video/5769257/" target="_blank" rel="noopener noreferrer">Pexels</a>' },
 ];
 
 /**
