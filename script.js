@@ -42,13 +42,11 @@ const audioSources = [
 ];
 
 // Define background video sources
-// UPDATE THESE URLs to point to your Cloudflare R2 bucket (e.g., https://pub-xxxxx.r2.dev/video1.mp4)
+// Upload your .mp4 files to Cloudflare R2 and update the filenames below
 const backgroundVideos = [
-    { id: 'backgroundVideo1', videoUrl: 'YOUR_R2_URL/video1.mp4', title: 'Drone Video 1', artist: 'Artist Name', creditUrl: '#' },
-    { id: 'backgroundVideo2', videoUrl: 'YOUR_R2_URL/video2.mp4', title: 'Drone Video 2', artist: 'Artist Name', creditUrl: '#' },
-    { id: 'backgroundVideo3', videoUrl: 'YOUR_R2_URL/video3.mp4', title: 'Drone Video 3', artist: 'Artist Name', creditUrl: '#' },
-    // Add more background videos as needed - example with Pexels direct link:
-    // { id: 'backgroundVideo4', videoUrl: 'https://pub-YOUR_ID.r2.dev/mountain-drone.mp4', title: 'Mountain Drone', artist: 'Pexels', creditUrl: 'https://pexels.com/...' },
+    { id: 'backgroundVideo1', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/video1.mp4', title: 'Drone Video 1', artist: 'Pexels', creditUrl: '#' },
+    { id: 'backgroundVideo2', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/video2.mp4', title: 'Drone Video 2', artist: 'Pexels', creditUrl: '#' },
+    { id: 'backgroundVideo3', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/video3.mp4', title: 'Drone Video 3', artist: 'Pexels', creditUrl: '#' },
 ];
 
 /**
