@@ -155,6 +155,9 @@ function initializeBackgroundVideo() {
         videoElement.play().catch(e => console.log('Video autoplay prevented:', e));
         videoInfo = firstBackgroundVideo.attribution;
         updateTrackInfo();
+
+        // Auto-play next video when current video ends
+        videoElement.addEventListener('ended', playNextBackgroundVideo);
     }
 }
 
@@ -540,6 +543,18 @@ function changeBackgroundVideo(videoUrl) {
 
     // Update background video buttons
     updateBackgroundVideoButtons();
+}
+
+/**
+ * Function to play the next background video in the list
+ */
+function playNextBackgroundVideo() {
+    const currentIndex = backgroundVideos.findIndex(v => v.id === currentBackgroundVideo);
+    const nextIndex = (currentIndex + 1) % backgroundVideos.length;
+    const nextVideo = backgroundVideos[nextIndex];
+
+    changeBackgroundVideo(nextVideo.videoUrl);
+    currentBackgroundVideo = nextVideo.id;
 }
 
 
