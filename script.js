@@ -44,9 +44,7 @@ const audioSources = [
 // Define background video sources
 // Upload your .mp4 files to Cloudflare R2 and update the filenames below
 const backgroundVideos = [
-    { id: 'backgroundVideo1', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/video1.mp4', title: 'Drone Video 1', artist: 'Pexels', creditUrl: '#' },
-    { id: 'backgroundVideo2', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/video2.mp4', title: 'Drone Video 2', artist: 'Pexels', creditUrl: '#' },
-    { id: 'backgroundVideo3', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/video3.mp4', title: 'Drone Video 3', artist: 'Pexels', creditUrl: '#' },
+    { id: 'backgroundVideo1', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/test-video.mp4', title: 'Hiking Footage', artist: 'HikingFex.com', creditUrl: 'https://www.hikingfex.com/en/videos' },
 ];
 
 /**
