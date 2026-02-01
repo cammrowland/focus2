@@ -1,7 +1,6 @@
 // script.js
 
 let players = {};
-let mainVideoPlayer;
 
 // Variables to keep track of currently playing music and spoken word tracks
 let currentMusic = null;
@@ -42,18 +41,12 @@ const audioSources = [
     // Add more tracks as needed
 ];
 
-// Define background video sources with correct video IDs and titles
+// Define background video sources
+// Upload your .mp4 files to Cloudflare R2 and update the filenames below
 const backgroundVideos = [
-    { id: 'backgroundVideo1', videoId: 'hXD8itTKdY0', title: 'Cinematic Drone Compilation - One Hour of Amazing FPV Drone Flying - 4K', artist: 'Kerni FPV', url: 'https://www.youtube.com/watch?v=hXD8itTKdY0' },
-    { id: 'backgroundVideo2', videoId: 'J0q3n5HQoko', title: '8 HOUR Cinematic Drone Compilation - LONGEST FPV Drone Video EVER?', artist: 'Kerni FPV', url: 'https://www.youtube.com/watch?v=J0q3n5HQoko' },
-    { id: 'backgroundVideo3', videoId: 'gkDVy7XGoFs', title: 'Sardinia from Above - 4K Cinematic FPV Relaxation Film', artist: 'Dennis Schmelz', url: 'https://www.youtube.com/watch?v=gkDVy7XGoFs' },
-    { id: 'backgroundVideo4', videoId: 'dIP7wWY4Znw', title: 'Cinematic FPV Drone Compilation - THREE HOURS 4k Movie', artist: 'Kerni FPV', url: 'https://www.youtube.com/watch?v=dIP7wWY4Znw' },
-    { id: 'backgroundVideo5', videoId: '6whHTP6L2Is', title: '6 Minutes Of Mountain Surfing in Norway | FPV Cinematics', artist: 'Shaggy FPV', url: 'https://www.youtube.com/watch?v=6whHTP6L2Is' },
-    { id: 'backgroundVideo6', videoId: 'vMTxSA7lkC8', title: '1 Hour of FPV Drone Footage - Relaxing Music', artist: 'WestPsyde', url: 'https://www.youtube.com/watch?v=vMTxSA7lkC8' },
-    { id: 'backgroundVideo7', videoId: 'AZzm9AgpZ0M', title: 'ICELAND Epic Landscapes from Above | Cinematic FPV', artist: 'Joshua Turner', url: 'https://www.youtube.com/watch?v=AZzm9AgpZ0M' },
-    { id: 'backgroundVideo8', videoId: 'B_8bbKn3amE', title: 'PERU through the eyes of a Condor | Cinematic FPV', artist: 'Joshua Turner', url: 'hhttps://www.youtube.com/watch?v=B_8bbKn3amE' }
-
-    // Add more background videos as needed
+    { id: 'backgroundVideo1', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/video1.mp4', title: 'Drone Video 1', artist: 'Pexels', creditUrl: '#' },
+    { id: 'backgroundVideo2', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/video2.mp4', title: 'Drone Video 2', artist: 'Pexels', creditUrl: '#' },
+    { id: 'backgroundVideo3', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/video3.mp4', title: 'Drone Video 3', artist: 'Pexels', creditUrl: '#' },
 ];
 
 /**
@@ -146,51 +139,31 @@ function updateTrackInfo() {
 }
 
 /**
+ * Initialize the native video background
+ */
+function initializeBackgroundVideo() {
+    const videoElement = document.getElementById('video-container');
+    const videoSource = document.getElementById('video-source');
+
+    if (backgroundVideos.length > 0) {
+        const firstBackgroundVideo = backgroundVideos[0];
+        currentBackgroundVideo = firstBackgroundVideo.id;
+        videoSource.src = firstBackgroundVideo.videoUrl;
+        videoElement.load();
+        videoElement.play().catch(e => console.log('Video autoplay prevented:', e));
+        videoInfo = `<a href="${firstBackgroundVideo.creditUrl}" target="_blank" rel="noopener noreferrer">"${firstBackgroundVideo.title}"</a> by ${firstBackgroundVideo.artist}`;
+        updateTrackInfo();
+    }
+}
+
+/**
  * Function called by the YouTube IFrame API once it's ready
  */
 function onYouTubeIframeAPIReady() {
-    // Initialize main video background with the first background video
-    const firstBackgroundVideo = backgroundVideos[0];
-    currentBackgroundVideo = firstBackgroundVideo.id;
-    videoInfo = `<a href="${firstBackgroundVideo.url}" target="_blank" rel="noopener noreferrer">"${firstBackgroundVideo.title}"</a> by ${firstBackgroundVideo.artist}`; // Set initial video info
+    // Initialize native video background (no YouTube for background)
+    initializeBackgroundVideo();
 
-   mainVideoPlayer = new YT.Player('video-container', {
-    videoId: firstBackgroundVideo.videoId, // Main video background
-    playerVars: {
-        autoplay: 1,
-        controls: 0,
-        showinfo: 0,
-        loop: 1,
-        playlist: firstBackgroundVideo.videoId, // Looping the video
-        modestbranding: 1,
-        fs: 0,
-        cc_load_policy: 0,
-        iv_load_policy: 3,
-        autohide: 1,
-        rel: 0,
-        mute: 1, // Muted by default
-        suggestedQuality: 'highres' // Suggest high resolution
-    },
-    events: {
-        onReady: function(event) {
-            event.target.playVideo();
-            event.target.setPlaybackQuality('highres'); // Set quality to highres
-            onResize(); // Ensure resizing
-            updateTrackInfo(); // Update the track info display
-        },
-        onPlaybackQualityChange: function(event) {
-            console.log(`Playback quality changed to: ${event.data}`);
-        },
-        onStateChange: function(event) {
-            if (event.data === YT.PlayerState.ENDED) {
-                event.target.playVideo(); // Restart the video if it ends
-            }
-        }
-    }
-});
-
-
-    // Initialize all audio players
+    // Initialize all audio players (still using YouTube for audio)
     loadAllPlayers();
 
     // Update background video buttons
@@ -541,7 +514,7 @@ function shuffleTracks() {
 function shuffleBackgroundVideo() {
     const randomVideo = backgroundVideos[Math.floor(Math.random() * backgroundVideos.length)];
     if (currentBackgroundVideo !== randomVideo.id) {
-        changeBackgroundVideo(randomVideo.videoId);
+        changeBackgroundVideo(randomVideo.videoUrl);
         currentBackgroundVideo = randomVideo.id;
     }
 }
@@ -549,25 +522,19 @@ function shuffleBackgroundVideo() {
 /**
  * Function to change the background video
  */
-function changeBackgroundVideo(videoId) {
-    const video = backgroundVideos.find(v => v.videoId === videoId);
+function changeBackgroundVideo(videoUrl) {
+    const videoElement = document.getElementById('video-container');
+    const videoSource = document.getElementById('video-source');
+    const video = backgroundVideos.find(v => v.videoUrl === videoUrl);
+
     if (video) {
-        videoInfo = `<a href="${video.url}" target="_blank" rel="noopener noreferrer">"${video.title}"</a> by ${video.artist}`;
+        videoInfo = `<a href="${video.creditUrl}" target="_blank" rel="noopener noreferrer">"${video.title}"</a> by ${video.artist}`;
         updateTrackInfo();
     }
 
-    mainVideoPlayer.loadVideoById({
-        videoId: videoId,
-        startSeconds: 0,
-        suggestedQuality: 'highres'
-    });
-    mainVideoPlayer.playVideo();
-    mainVideoPlayer.setLoop(true);
-
-    // Once the new video is ready, set the playback quality
-    mainVideoPlayer.addEventListener('onReady', function(event) {
-        event.target.setPlaybackQuality('highres'); // Set quality to highres
-    });
+    videoSource.src = videoUrl;
+    videoElement.load();
+    videoElement.play().catch(e => console.log('Video play prevented:', e));
 
     // Update background video buttons
     updateBackgroundVideoButtons();
@@ -611,29 +578,11 @@ function toggleSFXMenu() {
 }
 
 /**
- * Handle window resize
+ * Handle window resize (native video handles this via CSS object-fit)
  */
 function onResize() {
-    const videoContainer = document.getElementById('video-container');
-    if (videoContainer) {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        const aspectRatio = 16 / 9; // Assuming 16:9 aspect ratio
-
-        let newWidth, newHeight;
-        if (width / height > aspectRatio) {
-            newWidth = width;
-            newHeight = width / aspectRatio;
-        } else {
-            newWidth = height * aspectRatio;
-            newHeight = height;
-        }
-
-        videoContainer.style.width = `${newWidth}px`;
-        videoContainer.style.height = `${newHeight}px`;
-        videoContainer.style.left = `${(width - newWidth) / 2}px`;
-        videoContainer.style.top = `${(height - newHeight) / 2}px`;
-    }
+    // Native video element uses CSS object-fit: cover for responsive sizing
+    // No JavaScript resizing needed
 }
 
 /**
@@ -734,7 +683,7 @@ function attachToggleEvents() {
                     // Do nothing if the same video is selected
                     return;
                 } else {
-                    changeBackgroundVideo(video.videoId);
+                    changeBackgroundVideo(video.videoUrl);
                     currentBackgroundVideo = video.id;
                     updateBackgroundVideoButtons();
                 }
