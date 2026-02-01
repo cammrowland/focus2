@@ -44,9 +44,7 @@ const audioSources = [
 // Define background video sources
 // Upload your .mp4 files to Cloudflare R2 and update the filenames below
 const backgroundVideos = [
-    { id: 'backgroundVideo1', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/video1.mp4', title: 'Drone Video 1', artist: 'Pexels', creditUrl: '#' },
-    { id: 'backgroundVideo2', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/video2.mp4', title: 'Drone Video 2', artist: 'Pexels', creditUrl: '#' },
-    { id: 'backgroundVideo3', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/video3.mp4', title: 'Drone Video 3', artist: 'Pexels', creditUrl: '#' },
+    { id: 'backgroundVideo1', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/test-video.mp4', attribution: 'The video material has been kindly provided by <a href="https://www.hikingfex.com/en/videos" target="_blank" rel="noopener noreferrer">HikingFex.com</a>.' },
 ];
 
 /**
@@ -151,7 +149,7 @@ function initializeBackgroundVideo() {
         videoSource.src = firstBackgroundVideo.videoUrl;
         videoElement.load();
         videoElement.play().catch(e => console.log('Video autoplay prevented:', e));
-        videoInfo = `<a href="${firstBackgroundVideo.creditUrl}" target="_blank" rel="noopener noreferrer">"${firstBackgroundVideo.title}"</a> by ${firstBackgroundVideo.artist}`;
+        videoInfo = firstBackgroundVideo.attribution;
         updateTrackInfo();
     }
 }
@@ -528,7 +526,7 @@ function changeBackgroundVideo(videoUrl) {
     const video = backgroundVideos.find(v => v.videoUrl === videoUrl);
 
     if (video) {
-        videoInfo = `<a href="${video.creditUrl}" target="_blank" rel="noopener noreferrer">"${video.title}"</a> by ${video.artist}`;
+        videoInfo = video.attribution;
         updateTrackInfo();
     }
 
