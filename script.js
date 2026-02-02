@@ -45,6 +45,7 @@ const audioSources = [
 // Upload your .mp4 files to Cloudflare R2 and update the filenames below
 const backgroundVideos = [
     { id: 'backgroundVideo1', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/FPV01.mp4', attribution: 'Video by <a href="https://www.pexels.com/@sten" target="_blank" rel="noopener noreferrer">Sten</a> from Pexels' },
+    { id: 'backgroundVideo2', videoUrl: 'https://pub-99bd7862c66d4583a72e94b93f809058.r2.dev/18326009-uhd_2562_1440_60fps%20(1).mp4', attribution: 'Video by <a href="https://www.pexels.com/@enoeltora" target="_blank" rel="noopener noreferrer">enoeltora</a> from Pexels' },
 ];
 
 /**
